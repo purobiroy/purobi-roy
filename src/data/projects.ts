@@ -14,7 +14,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "healthcare-website",
-    title: "Doc needs a WEBSITE!",
+    title: "A doc needs a WEBSITE!",
     category: "Creative",
     description: "Designed and developed a professional multi-page website for a fetal medicine specialist, focused on trust, clarity, and patient engagement.",
     longDescription: "Built a complete no-code website using WordPress for a healthcare professional. The project focused on creating a clean, user-friendly structure with clear service pages, blog integration, and strong call-to-actions like WhatsApp chat and appointment booking. Basic on-page SEO including meta tags and page optimization was implemented to improve search visibility.",
@@ -68,7 +68,7 @@ export const projects: Project[] = [
     description: "Designed a structured email marketing funnel for Indotech Industries to nurture B2B leads and drive product inquiries.",
     longDescription: "This project focused on building a B2B email funnel for Indotech Industries, a manufacturer of Band Saw Machines. The goal was to convert cold leads into qualified inquiries by educating potential buyers, building trust, and showcasing product value through a structured communication flow.",
     tags: ["Email Marketing", "B2B", "Lead Nurturing", "Copywriting"],
-    image: "https://i.ibb.co/bgHwyGjH/Picsart-26-03-27-02-24-28-833.jpg",
+    image: "https://i.ibb.co/jv39sn24/CHAINSAW.jpg",
     results: [
       "Improved lead engagement through structured communication",
       "Clear product awareness for industrial buyers",

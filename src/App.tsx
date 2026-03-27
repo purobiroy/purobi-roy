@@ -165,7 +165,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, category, descript
       <img 
         src={image} 
         alt={title} 
-        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
+        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
         referrerPolicy="no-referrer"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-forest via-transparent to-transparent opacity-60" />
@@ -329,7 +329,7 @@ const Home = () => {
                   <img 
                     src="https://i.ibb.co/KzQrSfhb/Chat-GPT-Image-Mar-2.png" 
                     alt="Purobi Roy" 
-                    className="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
                     referrerPolicy="no-referrer"
                   />
                 </div>

@@ -95,7 +95,7 @@ export const CertificatePage = () => {
             <img 
               src={cert.image} 
               alt={cert.title} 
-              className="w-full h-auto rounded-2xl shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-700"
+              className="w-full h-auto rounded-2xl shadow-2xl relative z-10"
               referrerPolicy="no-referrer"
             />
           </motion.div>
