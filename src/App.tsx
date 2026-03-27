@@ -733,29 +733,7 @@ const Home = () => {
                 </div>
               </div>
 
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs uppercase tracking-widest text-white/40 ml-4">Name</label>
-                    <input type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-lime/50 transition-colors" placeholder="John Doe" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs uppercase tracking-widest text-white/40 ml-4">Email</label>
-                    <input type="email" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-lime/50 transition-colors" placeholder="john@example.com" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-white/40 ml-4">Subject</label>
-                  <input type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-lime/50 transition-colors" placeholder="Project Inquiry" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-white/40 ml-4">Message</label>
-                  <textarea rows={4} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-lime/50 transition-colors resize-none" placeholder="Tell me about your project..." />
-                </div>
-                <button className="w-full py-5 rounded-2xl bg-lime text-forest font-bold text-lg hover:shadow-[0_0_30px_rgba(212,255,94,0.3)] transition-all active:scale-[0.98]">
-                  Send Message
-                </button>
-              </form>
+              
             </div>
           </div>
         </div>
