@@ -96,31 +96,32 @@ const SkillCard = ({ icon: Icon, title, items }: { icon: any; title: string; ite
     whileHover={{ 
       y: -10,
       boxShadow: "0 30px 60px rgba(212,255,94,0.4)",
+      backgroundColor: "#D4FF5E",
     }}
     whileTap={{ 
       scale: 0.98,
       backgroundColor: "#D4FF5E",
     }}
-    className="glass p-8 rounded-[2.5rem] group hover:bg-lime hover:border-lime transition-all duration-500 cursor-pointer border border-white/10"
+    className="glass p-8 rounded-[2.5rem] group transition-all duration-500 cursor-pointer border border-white/10"
   >
-    <div className="w-12 h-12 rounded-2xl bg-lime/10 flex items-center justify-center mb-6 group-hover:bg-forest/10 transition-colors transform group-hover:translate-z-10">
+    <div className="w-12 h-12 rounded-2xl bg-lime/10 flex items-center justify-center mb-6 group-hover:bg-black/10 transition-colors">
       {typeof Icon === 'string' ? (
         <span className="text-2xl">{Icon}</span>
       ) : (
-        <Icon className="w-6 h-6 text-lime group-hover:text-forest" />
+        <Icon className="w-6 h-6 text-lime group-hover:text-black" />
       )}
     </div>
-    <h3 className="text-xl font-bold mb-4 tracking-tight uppercase group-hover:text-forest transition-colors">{title}</h3>
+    <h3 className="text-xl font-bold mb-4 tracking-tight uppercase group-hover:text-black transition-colors">{title}</h3>
     <ul className="space-y-3">
       {items.map((item, idx) => (
-        <li key={idx} className="text-white/60 text-sm flex items-start gap-2 group-hover:text-forest transition-colors">
-          <ChevronRight className="w-4 h-4 text-lime shrink-0 mt-0.5 group-hover:text-forest" />
+        <li key={idx} className="text-white/60 text-sm flex items-start gap-2 group-hover:text-black transition-colors">
+          <ChevronRight className="w-4 h-4 text-lime shrink-0 mt-0.5 group-hover:text-black" />
           {item}
         </li>
       ))}
     </ul>
     <div className="mt-8 opacity-0 group-hover:opacity-100 transition-opacity">
-      <div className="h-px w-full bg-gradient-to-r from-forest/30 to-transparent" />
+      <div className="h-px w-full bg-gradient-to-r from-black/20 to-transparent" />
     </div>
   </motion.div>
 );
@@ -131,17 +132,17 @@ const ExperienceItem = ({ date, title, company, description }: { date: string; t
     <motion.div 
       whileHover={{ 
         y: -10, 
-        boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-        backgroundColor: "rgba(255,255,255,0.03)"
+        boxShadow: "0 30px 60px rgba(212,255,94,0.3)",
+        backgroundColor: "#D4FF5E"
       }}
-      className="glass p-6 rounded-2xl transition-all duration-500 border border-white/5"
+      className="glass p-6 rounded-2xl transition-all duration-500 border border-white/5 group cursor-default"
     >
-      <span className="text-xs font-mono text-lime mb-2 block uppercase tracking-widest">{date}</span>
-      <h3 className="text-xl font-bold mb-1">{title}</h3>
-      <p className="text-white/40 text-sm mb-4 font-medium uppercase tracking-wider">{company}</p>
+      <span className="text-xs font-mono text-lime mb-2 block uppercase tracking-widest group-hover:text-black transition-colors">{date}</span>
+      <h3 className="text-xl font-bold mb-1 group-hover:text-black transition-colors">{title}</h3>
+      <p className="text-white/40 text-sm mb-4 font-medium uppercase tracking-wider group-hover:text-black transition-colors">{company}</p>
       <ul className="space-y-2">
         {description.map((item, idx) => (
-          <li key={idx} className="text-white/60 text-sm leading-relaxed">• {item}</li>
+          <li key={idx} className="text-white/60 text-sm leading-relaxed group-hover:text-black transition-colors">• {item}</li>
         ))}
       </ul>
     </motion.div>
@@ -154,14 +155,14 @@ const EducationItem = ({ date, degree, school }: { date: string; degree: string;
     <motion.div 
       whileHover={{ 
         y: -10, 
-        boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-        backgroundColor: "rgba(255,255,255,0.03)"
+        boxShadow: "0 30px 60px rgba(212,255,94,0.3)",
+        backgroundColor: "#D4FF5E"
       }}
-      className="glass p-6 rounded-2xl transition-all duration-500 border border-white/5"
+      className="glass p-6 rounded-2xl transition-all duration-500 border border-white/5 group cursor-default"
     >
-      <span className="text-xs font-mono text-lime mb-2 block uppercase tracking-widest">{date}</span>
-      <h3 className="text-xl font-bold mb-1">{degree}</h3>
-      <p className="text-white/40 text-sm font-medium uppercase tracking-wider">{school}</p>
+      <span className="text-xs font-mono text-lime mb-2 block uppercase tracking-widest group-hover:text-black transition-colors">{date}</span>
+      <h3 className="text-xl font-bold mb-1 group-hover:text-black transition-colors">{degree}</h3>
+      <p className="text-white/40 text-sm font-medium uppercase tracking-wider group-hover:text-black transition-colors">{school}</p>
     </motion.div>
   </div>
 );
@@ -188,7 +189,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, category, descript
       <img 
         src={image} 
         alt={title} 
-        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+        className="w-full h-full object-cover transition-all duration-700"
         referrerPolicy="no-referrer"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-forest via-transparent to-transparent opacity-60" />
@@ -229,14 +230,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, category, descript
 const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isImageClicked, setIsImageClicked] = useState(false);
+  const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null);
   const { scrollY } = useScroll();
   const location = useLocation();
 
   const handleImageClick = () => {
+    if (clickTimeout) clearTimeout(clickTimeout);
     setIsImageClicked(true);
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setIsImageClicked(false);
+      setClickTimeout(null);
     }, 3000);
+    setClickTimeout(timeout);
   };
 
   useEffect(() => {
@@ -343,13 +348,13 @@ const Home = () => {
               <div id="hero-image-container" className="absolute inset-0 flex items-center justify-center">
                 <div 
                   onClick={handleImageClick}
-                  className="w-[90%] h-[90%] rounded-full overflow-hidden transition-all duration-500 border-4 border-white/5 shadow-2xl group cursor-pointer hover:-translate-y-4 hover:shadow-[0_20px_60px_rgba(212,255,94,0.3)]"
+                  className="w-[90%] h-[90%] rounded-full overflow-hidden transition-all duration-500 border-4 border-white/5 shadow-2xl group cursor-pointer hover:-translate-y-4 hover:shadow-[0_20px_60px_rgba(212,255,94,0.3)] active:scale-95"
                 >
                   <img 
                     src="https://i.ibb.co/KzQrSfhb/Chat-GPT-Image-Mar-2.png" 
                     alt="Purobi Roy" 
                     className={cn(
-                      "w-full h-full object-cover transition-all duration-700",
+                      "w-full h-full object-cover transition-all duration-500",
                       isImageClicked ? "grayscale-0" : "grayscale group-hover:grayscale-0 group-active:grayscale-0"
                     )}
                     referrerPolicy="no-referrer"
@@ -556,20 +561,20 @@ const Home = () => {
                     <motion.div 
                       whileHover={{ 
                         y: -10,
-                        boxShadow: "0 20px 40px rgba(212,255,94,0.2)",
-                        backgroundColor: "rgba(212,255,94,0.1)"
+                        boxShadow: "0 30px 60px rgba(212,255,94,0.3)",
+                        backgroundColor: "#D4FF5E"
                       }}
                       whileTap={{ scale: 0.98 }}
                       className="glass p-6 rounded-[2rem] flex items-center gap-6 group cursor-pointer border border-white/10 transition-all duration-500"
                     >
-                      <div className="w-14 h-14 rounded-xl bg-lime/10 flex items-center justify-center group-hover:bg-lime/20 transition-colors">
-                        <Award className="w-7 h-7 text-lime" />
+                      <div className="w-14 h-14 rounded-xl bg-lime/10 flex items-center justify-center group-hover:bg-black/10 transition-colors">
+                        <Award className="w-7 h-7 text-lime group-hover:text-black" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg">{cert.title}</h4>
-                        <p className="text-white/40 text-sm uppercase tracking-widest">{cert.issuer}</p>
+                        <h4 className="font-bold text-lg group-hover:text-black transition-colors">{cert.title}</h4>
+                        <p className="text-white/40 text-sm uppercase tracking-widest group-hover:text-black transition-colors">{cert.issuer}</p>
                       </div>
-                      <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-lime transition-colors" />
+                      <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-black transition-colors" />
                     </motion.div>
                   </Link>
                 ))}
