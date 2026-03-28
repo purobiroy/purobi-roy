@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowLeft, Award, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Award } from 'lucide-react';
 
 export const certifications = [
   { 
@@ -42,7 +42,7 @@ export const CertificatePage = () => {
     return (
       <div className="min-h-screen bg-forest flex flex-col items-center justify-center p-6 text-center">
         <h1 className="text-4xl font-black uppercase tracking-tighter mb-4 text-white">Certificate Not Found</h1>
-        <Link to="/" className="text-lime font-bold uppercase tracking-widest hover:underline">
+        <Link to="/#certifications" className="text-lime font-bold uppercase tracking-widest hover:underline">
           Return Home
         </Link>
       </div>
@@ -58,7 +58,7 @@ export const CertificatePage = () => {
             <span className="text-lime">Purobi</span>ROY
           </Link>
           <Link 
-            to="/" 
+            to="/#certifications" 
             className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/60 hover:text-lime transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Home
@@ -72,32 +72,40 @@ export const CertificatePage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="mb-16"
           >
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-lime/10 mb-8 border border-lime/20">
-              <Award className="w-10 h-10 text-lime" />
-            </div>
-            <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-4">
+            <span className="px-4 py-1.5 rounded-full bg-lime/10 border border-lime/20 text-lime text-xs font-bold uppercase tracking-widest mb-6 inline-block">
+              Official Certification
+            </span>
+            <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6">
               {cert.title}
             </h1>
-            <p className="text-xl text-white/40 uppercase tracking-[0.3em] font-medium">
-              Issued by {cert.issuer}
-            </p>
+            <div className="flex items-center gap-4 text-white/40">
+              <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10">
+                <Award className="w-6 h-6 text-lime" />
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-widest font-bold text-lime">Issued By</p>
+                <p className="text-lg font-medium text-white/80">{cert.issuer}</p>
+              </div>
+            </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="glass p-4 md:p-8 rounded-[3rem] border border-white/10 relative group"
+            className="relative group"
           >
-            <div className="absolute inset-0 bg-lime/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-[3rem] pointer-events-none" />
-            <img 
-              src={cert.image} 
-              alt={cert.title} 
-              className="w-full h-auto rounded-2xl shadow-2xl relative z-10"
-              referrerPolicy="no-referrer"
-            />
+            <div className="absolute -inset-4 bg-lime/5 blur-3xl rounded-[4rem] opacity-50 group-hover:opacity-100 transition-opacity" />
+            <div className="relative glass p-4 md:p-10 rounded-[3rem] border border-white/10 overflow-hidden">
+              <img 
+                src={cert.image} 
+                alt={cert.title} 
+                className="w-full h-auto rounded-2xl shadow-2xl"
+                referrerPolicy="no-referrer"
+              />
+            </div>
           </motion.div>
         </section>
       </main>

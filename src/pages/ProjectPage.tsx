@@ -17,7 +17,7 @@ export const ProjectPage = () => {
     return (
       <div className="min-h-screen bg-forest flex flex-col items-center justify-center p-6 text-center">
         <h1 className="text-4xl font-black uppercase tracking-tighter mb-4">Project Not Found</h1>
-        <Link to="/" className="text-lime font-bold uppercase tracking-widest hover:underline">
+        <Link to="/#projects" className="text-lime font-bold uppercase tracking-widest hover:underline">
           Return Home
         </Link>
       </div>
@@ -33,7 +33,7 @@ export const ProjectPage = () => {
             <span className="text-lime">Purobi</span>ROY
           </Link>
           <Link 
-            to="/" 
+            to="/#projects" 
             className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/60 hover:text-lime transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Home

@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from 'motion/react';
 import { 
   Search, 
@@ -206,6 +206,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, category, descript
 const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.slice(1));
+      if (element) {
+        // Small delay to ensure the page is rendered
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
   
   // Scroll Parallax
   const heroY = useTransform(scrollY, [0, 500], [0, 100]);
@@ -329,7 +342,7 @@ const Home = () => {
                   <img 
                     src="https://i.ibb.co/KzQrSfhb/Chat-GPT-Image-Mar-2.png" 
                     alt="Purobi Roy" 
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-700 grayscale-0 md:grayscale md:group-hover:grayscale-0"
                     referrerPolicy="no-referrer"
                   />
                 </div>
@@ -538,8 +551,6 @@ const Home = () => {
                   <Link 
                     key={idx}
                     to={`/certificate/${cert.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="block"
                   >
                     <motion.div 
@@ -553,7 +564,7 @@ const Home = () => {
                         <h4 className="font-bold text-lg">{cert.title}</h4>
                         <p className="text-white/40 text-sm uppercase tracking-widest">{cert.issuer}</p>
                       </div>
-                      <ExternalLink className="w-5 h-5 text-white/20 group-hover:text-lime transition-colors" />
+                      <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-lime transition-colors" />
                     </motion.div>
                   </Link>
                 ))}
