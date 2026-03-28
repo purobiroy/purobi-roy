@@ -95,12 +95,13 @@ const SkillCard = ({ icon: Icon, title, items }: { icon: any; title: string; ite
   <motion.div 
     whileHover={{ 
       y: -10,
-      rotateX: 5,
-      rotateY: 5,
-      boxShadow: "0 20px 40px rgba(212,255,94,0.3)"
+      boxShadow: "0 30px 60px rgba(212,255,94,0.4)",
     }}
-    style={{ transformStyle: "preserve-3d" }}
-    className="glass p-8 rounded-3xl group hover:bg-[#B8E645] hover:border-[#B8E645] transition-all duration-500 cursor-default"
+    whileTap={{ 
+      scale: 0.98,
+      backgroundColor: "#D4FF5E",
+    }}
+    className="glass p-8 rounded-[2.5rem] group hover:bg-lime hover:border-lime transition-all duration-500 cursor-pointer border border-white/10"
   >
     <div className="w-12 h-12 rounded-2xl bg-lime/10 flex items-center justify-center mb-6 group-hover:bg-forest/10 transition-colors transform group-hover:translate-z-10">
       {typeof Icon === 'string' ? (
@@ -127,23 +128,41 @@ const SkillCard = ({ icon: Icon, title, items }: { icon: any; title: string; ite
 const ExperienceItem = ({ date, title, company, description }: { date: string; title: string; company: string; description: string[] }) => (
   <div className="relative pl-8 pb-12 border-l border-white/10 last:pb-0">
     <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-lime shadow-[0_0_10px_rgba(212,255,94,0.8)]" />
-    <span className="text-xs font-mono text-lime mb-2 block uppercase tracking-widest">{date}</span>
-    <h3 className="text-xl font-bold mb-1">{title}</h3>
-    <p className="text-white/40 text-sm mb-4 font-medium uppercase tracking-wider">{company}</p>
-    <ul className="space-y-2">
-      {description.map((item, idx) => (
-        <li key={idx} className="text-white/60 text-sm leading-relaxed">• {item}</li>
-      ))}
-    </ul>
+    <motion.div 
+      whileHover={{ 
+        y: -10, 
+        boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+        backgroundColor: "rgba(255,255,255,0.03)"
+      }}
+      className="glass p-6 rounded-2xl transition-all duration-500 border border-white/5"
+    >
+      <span className="text-xs font-mono text-lime mb-2 block uppercase tracking-widest">{date}</span>
+      <h3 className="text-xl font-bold mb-1">{title}</h3>
+      <p className="text-white/40 text-sm mb-4 font-medium uppercase tracking-wider">{company}</p>
+      <ul className="space-y-2">
+        {description.map((item, idx) => (
+          <li key={idx} className="text-white/60 text-sm leading-relaxed">• {item}</li>
+        ))}
+      </ul>
+    </motion.div>
   </div>
 );
 
 const EducationItem = ({ date, degree, school }: { date: string; degree: string; school: string }) => (
   <div className="relative pl-8 pb-12 border-l border-white/10 last:pb-0">
     <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-lime shadow-[0_0_10px_rgba(212,255,94,0.8)]" />
-    <span className="text-xs font-mono text-lime mb-2 block uppercase tracking-widest">{date}</span>
-    <h3 className="text-xl font-bold mb-1">{degree}</h3>
-    <p className="text-white/40 text-sm font-medium uppercase tracking-wider">{school}</p>
+    <motion.div 
+      whileHover={{ 
+        y: -10, 
+        boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+        backgroundColor: "rgba(255,255,255,0.03)"
+      }}
+      className="glass p-6 rounded-2xl transition-all duration-500 border border-white/5"
+    >
+      <span className="text-xs font-mono text-lime mb-2 block uppercase tracking-widest">{date}</span>
+      <h3 className="text-xl font-bold mb-1">{degree}</h3>
+      <p className="text-white/40 text-sm font-medium uppercase tracking-wider">{school}</p>
+    </motion.div>
   </div>
 );
 
@@ -158,8 +177,12 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, category, description, tags, image }) => (
   <motion.div 
-    whileHover={{ y: -10 }}
-    className="group relative bg-white/5 rounded-[2.5rem] overflow-hidden border border-white/10 hover:border-lime/30 transition-all duration-500"
+    whileHover={{ 
+      y: -10,
+      boxShadow: "0 30px 60px rgba(0,0,0,0.5)",
+    }}
+    whileTap={{ scale: 0.98 }}
+    className="group relative bg-white/5 rounded-[2.5rem] overflow-hidden border border-white/10 hover:border-lime/30 transition-all duration-500 cursor-pointer"
   >
     <div className="aspect-[16/10] overflow-hidden relative">
       <img 
@@ -224,30 +247,6 @@ const Home = () => {
   const heroY = useTransform(scrollY, [0, 500], [0, 100]);
   const textY = useTransform(scrollY, [0, 500], [0, -50]);
   
-  // Mouse Parallax
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  
-  const springConfig = { damping: 25, stiffness: 150 };
-  const smoothMouseX = useSpring(mouseX, springConfig);
-  const smoothMouseY = useSpring(mouseY, springConfig);
-  
-  const rotateX = useTransform(smoothMouseY, [-200, 200], [10, -10]);
-  const rotateY = useTransform(smoothMouseX, [-200, 200], [-10, 10]);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    mouseX.set(e.clientX - centerX);
-    mouseY.set(e.clientY - centerY);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
@@ -326,13 +325,11 @@ const Home = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            style={{ y: heroY, rotateX, rotateY }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
+            style={{ y: heroY }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="relative flex justify-center md:justify-start order-2 md:order-1 perspective-1000"
+            className="relative flex justify-center md:justify-start order-1 md:order-1"
           >
-            <div className="relative w-64 h-64 md:w-[400px] md:h-[400px] transform-style-3d">
+            <div className="relative w-64 h-64 md:w-[400px] md:h-[400px]">
               <div className="absolute inset-0 rounded-full border border-lime/20 animate-[spin_20s_linear_infinite]" />
               <div className="absolute inset-4 rounded-full border border-lime/10 animate-[spin_15s_linear_infinite_reverse]" />
               <div id="hero-image-container" className="absolute inset-0 flex items-center justify-center">
@@ -342,7 +339,7 @@ const Home = () => {
                   <img 
                     src="https://i.ibb.co/KzQrSfhb/Chat-GPT-Image-Mar-2.png" 
                     alt="Purobi Roy" 
-                    className="w-full h-full object-cover transition-all duration-700 grayscale-0 md:grayscale md:group-hover:grayscale-0"
+                    className="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-active:grayscale-0"
                     referrerPolicy="no-referrer"
                   />
                 </div>
@@ -355,7 +352,7 @@ const Home = () => {
             animate={{ opacity: 1, x: 0 }}
             style={{ y: textY }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="order-1 md:order-2"
+            className="order-2 md:order-2"
           >
             <motion.span 
               initial={{ opacity: 0 }}
@@ -525,15 +522,6 @@ const Home = () => {
                 />
               </div>
             </div>
-            
-            <div className="hidden lg:flex items-center justify-center">
-              <div className="relative">
-                <div className="absolute -inset-4 bg-lime/20 blur-3xl rounded-full" />
-                <div className="relative text-[10rem] font-black text-white/10 select-none leading-none">
-                  EDU
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </Section>
@@ -554,8 +542,13 @@ const Home = () => {
                     className="block"
                   >
                     <motion.div 
-                      whileHover={{ x: 10 }}
-                      className="glass p-6 rounded-2xl flex items-center gap-6 group cursor-pointer"
+                      whileHover={{ 
+                        y: -10,
+                        boxShadow: "0 20px 40px rgba(212,255,94,0.2)",
+                        backgroundColor: "rgba(212,255,94,0.1)"
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                      className="glass p-6 rounded-[2rem] flex items-center gap-6 group cursor-pointer border border-white/10 transition-all duration-500"
                     >
                       <div className="w-14 h-14 rounded-xl bg-lime/10 flex items-center justify-center group-hover:bg-lime/20 transition-colors">
                         <Award className="w-7 h-7 text-lime" />
@@ -568,14 +561,6 @@ const Home = () => {
                     </motion.div>
                   </Link>
                 ))}
-              </div>
-            </div>
-            <div className="hidden lg:flex items-center justify-center">
-              <div className="relative">
-                <div className="absolute -inset-4 bg-lime/10 blur-3xl rounded-full" />
-                <div className="relative text-[10rem] font-black text-white/5 select-none leading-none">
-                  CERT
-                </div>
               </div>
             </div>
           </div>
